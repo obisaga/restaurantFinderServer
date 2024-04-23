@@ -3,6 +3,8 @@ import "dotenv/config"
 import cors from "cors"
 
 
+
+
 const app = express()
 const port = 8080 || process.env.port
 
@@ -23,12 +25,14 @@ app.get('/restaurants/:postcode', async (req, res) => {
     try {
       const postcode = req.params.postcode;
       const apiUrl = `https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postcode}`;
+      
+   
       const response = await fetch(apiUrl);
   
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
-  
+              
       const data = await response.json();
       res.json(data);
     } catch (error) {
@@ -36,8 +40,6 @@ app.get('/restaurants/:postcode', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
-
-
 
   
 
